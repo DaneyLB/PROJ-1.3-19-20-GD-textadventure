@@ -1,5 +1,5 @@
 body{
-  background-color: white;
+  background-color: black;
 }
 
 .container{
@@ -8,7 +8,7 @@ body{
   margin: auto;
   background-color: aliceblue;
   padding: 20px;
-  border: blue 3px solid;
+  border: orange 3px solid;
   border-radius: 10px;
 }
 
@@ -20,6 +20,13 @@ body{
 }
 
 .treasure{
+  position: absolute;
+  left: 50px;
+  top: 150px;
+}
+
+.gevondenTreasure
+{
   position: absolute;
   left: 50px;
   top: 150px;

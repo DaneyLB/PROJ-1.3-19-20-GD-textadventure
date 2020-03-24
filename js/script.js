@@ -12,48 +12,48 @@ let treasureGepakt = false;
 let deurSlot = true;
 
 let locations = [];
-locations[0] = "kantine";
-locations[1] = "trap";
-locations[2] = "eind";
-locations[3] = "docentenkamer";
-locations[4] = "poort naar de stad";
-locations[5] = "medialab";
-locations[6] = "toiletten";
-locations[7] = "klaslokaal";
-locations[8] = "examenlokaal";
+locations[0] = "Grot";
+locations[1] = "Grot";
+locations[2] = "Uitgang";
+locations[3] = "Grot";
+locations[4] = "Grot";
+locations[5] = "Grot met een crack in de muur";
+locations[6] = "Grot";
+locations[7] = "Grot";
+locations[8] = "Grot";
 
 images = [];
-images[0] = "room0.jpg";
-images[1] = "room1.jpg";
-images[2] = "room2.jpg";
-images[3] = "room3.jpg";
-images[4] = "room4.jpg";
-images[5] = "room5.jpg";
-images[6] = "room6.jpg";
-images[7] = "room7.jpg";
-images[8] = "room8.jpg";
+images[0] = "room0.png";
+images[1] = "room1.png";
+images[2] = "room2.png";
+images[3] = "room3.png";
+images[4] = "room4.png";
+images[5] = "room5.png";
+images[6] = "room6.png";
+images[7] = "room7.png";
+images[8] = "room8.png";
 
 directions = [];
-directions[0] = ["zuid"];
+directions[0] = ["zuid", "oost"];
 directions[1] = ["west", "zuid"];
 directions[2] = ["zuid"];
-directions[3] = ["zuid"];
+directions[3] = ["noord", "zuid"];
 directions[4] = ["noord", "zuid"];
 directions[5] = ["zuid"];
-directions[6] = ["oost"];
+directions[6] = ["noord", "oost"];
 directions[7] = ["noord", "west", "oost"];
 directions[8] = ["noord", "west"];
 
 descriptions = [];
-descriptions[0] = "u staat in een kantine. Hier zitten studenten te eten of computerspelletjes te doen";
-descriptions[1] = "u staat op een trap naar de eerste etage. Om u heen lopen studenten omhoog en omlaag";
-descriptions[2] = "u heeft gewonnen";
-descriptions[3] = "u staat in de lerarenkamer. De leraren eten hier hun lunch of drinken koffie of thee";
-descriptions[4] = "u staat in een gang. Studenten en leraren lopen richting de klaslokalen";
-descriptions[5] = "u staat in het medialab. Hier kan geexperimenteerd worden met bijvoorbeeld virtual reality brillen";
-descriptions[6] = "u staat bij de toiletten";
-descriptions[7] = "u staat in een klaslokaal. De tafels staan recht achter elkaar en voorin is een projector en een smartboard";
-descriptions[8] = "u staat in het examenlokaal. Hier zijn de vierdejaars studenten bezig met het voorbereiden van hun examen";
+descriptions[0] = "Der ligt hier een bom opgeslagen... Misschien handig om deze mee te nemen (type: pak Bom)";
+descriptions[1] = "Hmmm , je kan hier 2 richtingen op.";
+descriptions[2] = "Je bent weer veilig naar buiten gekomen!!";
+descriptions[3] = "Je kan hier 2 richtingen op.";
+descriptions[4] = "U bent van boven naar beneden in deze grot gevallen... er moet vast wel een uitweg zijn!";
+descriptions[5] = "Er zit hier een gat in de muur, mischien kan deze kapot! (type: gebruik (item), hierna kan je naar het noorden gaan!";
+descriptions[6] = "Er zijn hier weer 2 kanten die we op kunnen";
+descriptions[7] = "Oef 3 kanten die we op kunnen.... waar gaan we heen?";
+descriptions[8] = "Volgens mij zie ik daar iets in de verte!";
 
 let gebruikTreasure = [];
   gebruikTreasure[5] = "Bom";
@@ -139,11 +139,17 @@ function showTreasure(currentLocation){
   if(typeof treasureImages[currentLocation] != "undefined"){
     console.log(treasureImages[currentLocation]);
     treasure.src = "treasures/" + treasureImages[currentLocation];
+    if(treasureGepakt == true){
+      treasure.src = "";
+    }
+  }
+  else{
+    treasure.src = "";
   }
 }
 
 function giveLocation() {
-  divLocation.innerHTML = locations[currentLocation] + " daney jij bent in grid " + currentLocation;
+  divLocation.innerHTML = locations[currentLocation] + " Grid => " + currentLocation;
   myDescription.innerHTML = descriptions[currentLocation];
   imageLocation.src = "media/" + images[currentLocation];
   myDirections = "mogelijke richtingen zijn: ";
