@@ -5,7 +5,7 @@ const feedback = document.getElementById('feedback');
 const imageLocation = document.getElementById('imageLocation');
 const myDescription = document.getElementById('description');
 const myInventory = document.getElementById('inventory');
-const treasures = document.getElementById('treasure');
+const treasure = document.getElementById('treasure');
 
 let currentLocation = 4;
 let treasureGepakt = false;
@@ -138,7 +138,7 @@ function getInput(evt) {
 function showTreasure(currentLocation){
   if(typeof treasureImages[currentLocation] != "undefined"){
     console.log(treasureImages[currentLocation]);
-    treasures.src = "treasures/" + treasureImages[currentLocation];
+    treasure.src = "treasures/" + treasureImages[currentLocation];
   }
 }
 
