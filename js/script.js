@@ -5,15 +5,18 @@ const feedback = document.getElementById('feedback');
 const imageLocation = document.getElementById('imageLocation');
 const myDescription = document.getElementById('description');
 const myInventory = document.getElementById('inventory');
+const treasures = document.getElementById('treasure');
 
 let currentLocation = 4;
+let treasureGepakt = false;
+let deurSlot = true;
 
 let locations = [];
 locations[0] = "kantine";
 locations[1] = "trap";
 locations[2] = "eind";
 locations[3] = "docentenkamer";
-locations[4] = "gang";
+locations[4] = "poort naar de stad";
 locations[5] = "medialab";
 locations[6] = "toiletten";
 locations[7] = "klaslokaal";
@@ -31,11 +34,11 @@ images[7] = "room7.jpg";
 images[8] = "room8.jpg";
 
 directions = [];
-directions[0] = ["oost"];
+directions[0] = ["zuid"];
 directions[1] = ["west", "zuid"];
 directions[2] = ["zuid"];
-directions[3] = ["oost"];
-directions[4] = ["noord", "west", "zuid"];
+directions[3] = ["zuid"];
+directions[4] = ["noord", "zuid"];
 directions[5] = ["zuid"];
 directions[6] = ["oost"];
 directions[7] = ["noord", "west", "oost"];
@@ -51,6 +54,16 @@ descriptions[5] = "u staat in het medialab. Hier kan geexperimenteerd worden met
 descriptions[6] = "u staat bij de toiletten";
 descriptions[7] = "u staat in een klaslokaal. De tafels staan recht achter elkaar en voorin is een projector en een smartboard";
 descriptions[8] = "u staat in het examenlokaal. Hier zijn de vierdejaars studenten bezig met het voorbereiden van hun examen";
+
+let gebruikTreasure = [];
+  gebruikTreasure[5] = "Bom";
+
+let pakTreasure = [];
+  pakTreasure[0] = "Bom";
+
+treasureImages = [];
+  treasureImages[0] = "Bomb.png";
+
 
 myInput.addEventListener('keydown', getInput, false);
 
@@ -70,11 +83,18 @@ function getInput(evt) {
           case "oost":
             currentLocation += 1;
             break;
+          case "oost":
+            currentLocation += 1;
+            break;
           case "west":
             currentLocation -= 1;
             break;
         }
-      } else {
+      }
+
+   
+  
+       else {
         feedback.innerHTML = "dat mag niet";
         setTimeout(removeFeedback, 2000);
 
@@ -84,12 +104,25 @@ function getInput(evt) {
     }
 
     if (inputArray[0] == "pak") {
-      console.log('ga wat pakken');
+      if (pakTreasure[currentLocation].indexOf(inputArray[1]) != -1)
+      {
+        treasureGepakt = true;
+        console.log("Je hebt de bom");
+      }
       myInput.value = "";
     }
 
-    if (inputArray[0] == "gebruik"){
-      console.log('ga wat gebruiken');
+    if (inputArray[0] == "gebruik")
+    {
+      if (gebruikTreasure[currentLocation].indexOf(inputArray[1]) != -1)
+      {
+        if (treasureGepakt == true)
+        {
+          doorSlot = false;
+          directions[5] = ["noord", "zuid"];
+          console.log("Deur open");
+        }
+      }
       myInput.value = "";
     }
 
@@ -102,8 +135,15 @@ function getInput(evt) {
   }
 }
 
+function showTreasure(currentLocation){
+  if(typeof treasureImages[currentLocation] != "undefined"){
+    console.log(treasureImages[currentLocation]);
+    treasures.src = "treasures/" + treasureImages[currentLocation];
+  }
+}
+
 function giveLocation() {
-  divLocation.innerHTML = locations[currentLocation];
+  divLocation.innerHTML = locations[currentLocation] + " daney jij bent in grid " + currentLocation;
   myDescription.innerHTML = descriptions[currentLocation];
   imageLocation.src = "media/" + images[currentLocation];
   myDirections = "mogelijke richtingen zijn: ";
@@ -111,7 +151,15 @@ function giveLocation() {
     myDirections += "<li>" + directions[currentLocation][i] + "</li>";
   }
   myPossibilities.innerHTML = myDirections;
-  myInventory.innerHTML = "uw inventory is leeg";
+  if (treasureGepakt == true)
+  {
+    myInventory.innerHTML = "Je hebt een Bom in je inventory."; 
+  }
+  else
+  {
+    myInventory.innerHTML = "uw inventory is leeg";
+  }
+  showTreasure(currentLocation);
 }
 
 function removeFeedback() {
